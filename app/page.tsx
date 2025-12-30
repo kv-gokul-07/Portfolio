@@ -12,21 +12,8 @@ export default function Home() {
 
       {/* Content Area */}
       <main className="mx-auto flex max-w-7xl">
-        {/* Right Content (always visible) */}
-        <section className="w-full p-4">
           <Portfolio />
-        </section>
-         <section className="w-full p-4">
-          <Portfolio />
-        </section>
-         <section className="w-full p-4">
-          <Portfolio />
-        </section>
-         <section className="w-full p-4">
-          <Portfolio />
-        </section>
       </main>
-
        <CarScroller />
     </div>
   );
