@@ -11,7 +11,7 @@ export default function Home() {
       </header>
 
       {/* Content Area */}
-      <main className="mx-auto flex max-w-7xl">
+      <main className="mx-auto max-w-7xl">
           <Portfolio />
       </main>
        <CarScroller />
