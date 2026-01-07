@@ -1,15 +1,18 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import Image from 'next/image';
+import Image from "next/image";
 import { useRef, useState } from "react";
-import SkillLine from "../components/skillLine/SkillLine";
-import Profile from '../../public/profile.jpg'; 
+import Profile from "../../public/profile.jpg";
 import TypingCursor from "../components/typingCursor/TypingCursor";
+import ExperienceCard from "../components/experienceCard/ExperienceCard";
 
 const Page = () => {
-  const ref = useRef<HTMLDivElement>(null);
+  /* -------------------- REFS -------------------- */
+  const workRef = useRef<HTMLDivElement>(null);
+  const skillsRef = useRef<HTMLDivElement>(null);
 
+  /* -------------------- FORM STATE -------------------- */
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,18 +25,13 @@ const Page = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // 🔗 Later connect API / EmailJS here
     console.log("Form Data:", formData);
 
     setTimeout(() => {
@@ -42,189 +40,304 @@ const Page = () => {
     }, 1000);
   };
 
+  /* -------------------- WORK EXPERIENCE SCROLL -------------------- */
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: workRef,
     offset: ["start start", "end end"],
   });
 
-  // Scroll animations
   const card2Y = useTransform(scrollYProgress, [0.25, 0.4], [220, 0]);
   const card2Opacity = useTransform(scrollYProgress, [0.25, 0.35], [0, 1]);
 
   const card3Y = useTransform(scrollYProgress, [0.5, 0.65], [220, 0]);
   const card3Opacity = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
 
+  /* -------------------- SKILLS SCROLL -------------------- */
+  const { scrollYProgress: skillsScroll } = useScroll({
+    target: skillsRef,
+    offset: ["start end", "end start"],
+  });
+
+  const skillsBgPosition = useTransform(
+    skillsScroll,
+    [0, 1],
+    ["100% 100%", "0% 0%"]
+  );
+
+  const skillsTextColor = useTransform(
+    skillsScroll,
+    [0.4, 0.8],
+    ["#ffffff", "#000000"]
+  );
+
+  /* -------------------- RENDER -------------------- */
   return (
     <>
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section
-        className="flex justify-center items-center min-h-[calc(100vh-80px)]"
         id="home"
+        className="flex items-center justify-center min-h-[calc(100vh-80px)]"
       >
-        <div className="flex flex-col lg:flex-row justify-center items-center gap-12 lg:gap-20">
-          <div className="w-40 h-40  lg:w-80 lg:h-80 rounded-full" >
-            <Image style={{objectFit: "cover"}} className="w-40 h-40  lg:w-80 lg:h-80 bg-blue-500 rounded-full" src={Profile} alt="Profile" />
-            </div>
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          <div className="w-40 h-40 lg:w-80 lg:h-80 rounded-full overflow-hidden">
+            <Image
+              src={Profile}
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
+          </div>
 
           <div className="text-center lg:text-left">
             <h1 className="text-3xl font-bold">Gokul V</h1>
-            <TypingCursor text="Senior Software Engineer" />         
+            <TypingCursor text="Senior Software Engineer" />
           </div>
         </div>
       </section>
 
-      {/* WORK EXPERIENCE SECTION */}
+      {/* WORK EXPERIENCE */}
       <section
-        ref={ref}
-        id="Work Experience"
+        ref={workRef}
+        id="work"
         className="relative min-h-[180vh] lg:min-h-[240vh] bg-black text-white"
       >
         <div className="flex flex-col lg:flex-row items-center lg:sticky lg:top-0 lg:h-screen">
-          {/* TITLE */}
-          <div className="w-full lg:w-1/2 flex items-center justify-center px-4 lg:px-16 py-8 lg:py-0">
-            <h2 className="text-3xl lg:text-4xl font-bold text-center lg:text-left">
-              Work Experience
-            </h2>
+          <div className="w-full lg:w-1/2 flex items-center justify-center px-4 lg:px-16 py-8">
+            <h2 className="text-3xl lg:text-4xl font-bold">Work Experience</h2>
           </div>
 
-          {/* MOBILE VIEW */}
+          {/* MOBILE */}
           <div className="flex flex-col gap-6 px-4 lg:hidden w-full">
-            <div className="w-full h-72 bg-blue-700 rounded-xl shadow-xl flex items-center justify-center text-lg">
-              Card One
+            <div className="h-auto bg-blue-700 rounded-xl">
+              <ExperienceCard
+                role="Senior Software Engineer"
+                company="Reverie Language Technologies"
+                duration="Dec 2024 – Present"
+                location="Bengaluru · On-site"
+                responsibilities={[
+                  "Contributed to core feature development for the document translation product (Prabandhak)",
+                  "Built scalable language translation features with high accuracy and performance",
+                  "Collaborated with PMs, QA, and developers to meet business requirements",
+                  "Improved workflows and enhanced document translation capabilities",
+                ]}
+                tech={["MERN", "Microservices", "REST APIs"]}
+              />
             </div>
 
-            <div className="w-full h-72 bg-green-700 rounded-xl shadow-xl flex items-center justify-center text-lg">
-              Card Two
+            <div className="h-auto bg-green-700 rounded-xl">
+              <ExperienceCard
+                role="Software Engineer"
+                company="Gloify"
+                duration="Sep 2022 – Nov 2024"
+                location="Bangalore · On-site"
+                responsibilities={[
+                  "Led end-to-end development of scalable web applications across fintech and B2B/B2C domains",
+                  "Owned the full development lifecycle from requirements to production delivery",
+                  "Worked closely with clients and business analysts on-site",
+                  "Mentored junior developers and enforced code quality standards",
+                ]}
+                 tech={[
+                  "React",
+                  "Next.js",
+                  "Node.js",
+                  "MongoDB",
+                  "Microservices",
+                ]}
+              />
             </div>
 
-            <div className="w-full h-72 bg-purple-700 rounded-xl shadow-xl flex items-center justify-center text-lg">
-              Card Three
+            <div className="h-auto bg-purple-700 rounded-xl">
+              <ExperienceCard
+                role="Software Engineer"
+                company="good userxperience"
+                duration="Aug 2020 – Sep 2022"
+                location="Bangalore Urban · On-site"
+                responsibilities={[
+                  "Started career as a frontend developer building responsive UIs",
+                  "Developed applications using React, Angular, JavaScript, and jQuery",
+                  "Worked closely with internal teams to deliver pixel-perfect UI",
+                  "Interacted with clients to gather feedback and refine UI",
+                ]}
+                tech={["React", "Angular", "JavaScript", "HTML", "CSS"]}
+              />
             </div>
           </div>
 
-          {/* DESKTOP VIEW */}
-          <div className="hidden lg:flex w-full sm:w-1/2 relative h-screen sticky top-0 items-center justify-center">
-            
+          {/* DESKTOP */}
+          <div className="hidden lg:flex w-1/2 relative h-screen sticky top-0 items-center justify-center">
             {/* CARD 1 */}
-            <div
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10
-                        w-100 h-150 bg-blue-700 rounded-xl shadow-xl
-                        flex items-center justify-center text-xl"
-            >
-              Card One
+            <div className="absolute z-10 w-100 h-150 bg-blue-700 rounded-xl overflow-y-auto">
+              <ExperienceCard
+                role="Senior Software Engineer"
+                company="Reverie Language Technologies"
+                duration="Dec 2024 – Present"
+                location="Bengaluru · On-site"
+                highlight="Currently Working"
+                responsibilities={[
+                  "Built core features for the document translation product Prabandhak",
+                  "Developed scalable language translation tools with high accuracy",
+                  "Worked closely with PMs, QA, and engineers for feature delivery",
+                  "Improved workflows and document translation performance",
+                ]}
+                tech={["MERN", "Microservices", "REST APIs"]}
+              />
             </div>
 
-            {/* CARD 2 */}
             <motion.div
               style={{ y: card2Y, opacity: card2Opacity }}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20
-                        w-100 h-150 bg-green-700 rounded-xl shadow-xl
-                        flex items-center justify-center text-xl"
+              className="absolute z-20 w-100 h-150 bg-green-700 rounded-xl overflow-y-auto"
             >
-              Card Two
+              <ExperienceCard
+                role="Software Engineer"
+                company="Gloify"
+                duration="Sep 2022 – Nov 2024"
+                location="Bangalore · On-site"
+                highlight="Team Lead Role"
+                responsibilities={[
+                  "Led end-to-end development of fintech and B2B/B2C platforms",
+                  "Owned complete development lifecycle from requirements to production",
+                  "Collaborated with clients and business analysts on-site",
+                  "Mentored junior developers and enforced coding standards",
+                ]}
+                tech={[
+                  "React",
+                  "Next.js",
+                  "Node.js",
+                  "MongoDB",
+                  "Microservices",
+                ]}
+              />
             </motion.div>
 
-            {/* CARD 3 */}
             <motion.div
               style={{ y: card3Y, opacity: card3Opacity }}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30
-                        w-100 h-150 bg-purple-700 rounded-xl shadow-xl
-                        flex items-center justify-center text-xl"
+              className="absolute z-30 w-100 h-150 bg-purple-700 rounded-xl overflow-y-auto"
             >
-              Card Three
+              <ExperienceCard
+                role="Software Engineer"
+                company="good userxperience"
+                duration="Aug 2020 – Sep 2022"
+                location="Bangalore Urban · On-site"
+                highlight="Career Foundation"
+                responsibilities={[
+                  "Started career as a frontend developer building responsive UIs",
+                  "Worked with React, Angular, JavaScript, and jQuery",
+                  "Delivered pixel-perfect UI components with design teams",
+                  "Interacted with clients to refine UX based on feedback",
+                ]}
+                tech={["React", "Angular", "JavaScript", "HTML", "CSS"]}
+              />
             </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="relative h-dvh overflow-hidden flex items-center justify-center">
-      <div className="absolute top-[20%] rotate-15 w-auto left-[-10%] z-index-3">
-        <SkillLine text="HTML • CSS • SCSS • React JS • Next.js • JavaScript • TypeScript • Three.Js • Tailwind • HTML • CSS • SCSS • React JS" />
-      </div>
-
-      <div className="absolute top-[50%] -rotate-25 w-auto">
-        <SkillLine text="Node.js • Express.js • Molecular.Js • MongoDB • REST APIs • Microservices• MongoDB • REST APIs • Microservices" />
-      </div>
-
-      <div className="absolute top-[70%] w-[140%] rotate-25 w-auto z-index-2">
-        <SkillLine text="GIT • BitBucket • Postman • Docker • CI/CD • Kubernates • System Design • GIT • BitBucket • Postman • Docker" /> 
-      </div>
-      {/* LINE 1 */}
-      {/* <motion.div */}
-        
-      {/* </motion.div> */}
-
-      {/* LINE 2 */}
-      <motion.div
-        // style={{ x: rightToLeft, rotate: 6 }}
-        
+      {/* SKILLS */}
+      <section
+        ref={skillsRef}
+        id="skills"
+        className="
+          bg-black
+          px-4
+          py-10          /* controls top & bottom spacing */
+          h-[70vh]       /* desktop height */
+          sm:h-[65vh]
+          md:h-[60vh]
+          lg:h-[65vh]
+          xl:h-[200]
+          flex
+          flex-column
+          justify-center
+          items-center
+        "
       >
-        
-      </motion.div>
-
-      {/* LINE 3 */}
-      <motion.div
-        // style={{ x: leftToRight, rotate: -4 }}
-       
-      >
-        
-      </motion.div>
+        <div className="max-w-6xl w-full flex flex-wrap justify-center gap-4">
+          {[
+            "HTML",
+            "CSS",
+            "SCSS",
+            "JavaScript",
+            "TypeScript",
+            "React JS",
+            "Next.js",
+            "Three.js",
+            "Tailwind CSS",
+            "Node.js",
+            "Express.js",
+            "Moleculer.js",
+            "MongoDB",
+            "REST APIs",
+            "Microservices",
+            "Git",
+            "Bitbucket",
+            "Postman",
+            "Docker",
+            "CI/CD",
+            "Kubernetes",
+            "System Design",
+          ].map((skill, index) => (
+            <motion.div
+              key={index}
+              style={{
+                backgroundImage:
+                  "linear-gradient(135deg, white 0%, white 50%, transparent 50%)",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "200% 200%",
+                backgroundPosition: skillsBgPosition,
+                color: skillsTextColor,
+              }}
+              className="
+    px-5 py-3
+    border border-current
+    rounded-[20%]
+    text-center
+    text-sm sm:text-base
+    overflow-hidden
+  "
+            >
+              {skill}
+            </motion.div>
+          ))}
+        </div>
       </section>
 
-      {/* CONTACT SECTION */}
-      <section id="Contact" className="min-h-screen flex items-center justify-center px-4">
-        <div className="w-full max-w-md sm:max-w-lg bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 text-white">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6">
-            Contact Me
-          </h2>
+      {/* CONTACT */}
+      <section
+        id="contact"
+        className="min-h-screen flex items-center justify-center px-4 bg-black"
+      >
+        <div className="w-full max-w-lg bg-white/5 backdrop-blur-md rounded-2xl p-6 text-white">
+          <h2 className="text-3xl font-bold text-center mb-6">Contact Me</h2>
+
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {/* Name */}
-            <div>
-              <label className="block text-sm mb-1 text-gray-300">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                required
-                className="w-full rounded-lg bg-black/40 border border-gray-700 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Name"
+              className="bg-black/40 border border-gray-700 px-4 py-2 rounded-lg"
+            />
 
-            {/* Email */}
-            <div>
-              <label className="block text-sm mb-1 text-gray-300">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-                required
-                className="w-full rounded-lg bg-black/40 border border-gray-700 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            <input
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              className="bg-black/40 border border-gray-700 px-4 py-2 rounded-lg"
+            />
 
-            {/* Comments */}
-            <div>
-              <label className="block text-sm mb-1 text-gray-300">Comments</label>
-              <textarea
-                name="comments"
-                value={formData.comments}
-                onChange={handleChange}
-                rows={4}
-                placeholder="Write your message..."
-                required
-                className="w-full rounded-lg bg-black/40 border border-gray-700 px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            <textarea
+              name="comments"
+              value={formData.comments}
+              onChange={handleChange}
+              rows={4}
+              placeholder="Comments"
+              className="bg-black/40 border border-gray-700 px-4 py-2 rounded-lg"
+            />
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 bg-blue-600 hover:bg-blue-700 transition-colors rounded-lg py-2 font-semibold disabled:opacity-60"
+              className="bg-blue-600 hover:bg-blue-700 py-2 rounded-lg"
             >
               {loading ? "Submitting..." : "Submit"}
             </button>

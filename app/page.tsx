@@ -14,7 +14,7 @@ export default function Home() {
       <main className="mx-auto max-w-7xl">
           <Portfolio />
       </main>
-       <CarScroller />
+       {/* <CarScroller /> */}
     </div>
   );
 }
