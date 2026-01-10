@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import Profile from "../../public/profile.jpg";
 import TypingCursor from "../components/typingCursor/TypingCursor";
 import ExperienceCard from "../components/experienceCard/ExperienceCard";
+import HeroSection from "../components/heroSection/Herosection";
 
 const Page = () => {
   /* -------------------- REFS -------------------- */
@@ -107,7 +108,7 @@ const Page = () => {
 
           {/* MOBILE */}
           <div className="flex flex-col gap-6 px-4 lg:hidden w-full">
-            <div className="h-auto bg-blue-700 rounded-xl">
+            <div className="h-auto bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] rounded-xl">
               <ExperienceCard
                 role="Senior Software Engineer"
                 company="Reverie Language Technologies"
@@ -123,7 +124,7 @@ const Page = () => {
               />
             </div>
 
-            <div className="h-auto bg-green-700 rounded-xl">
+            <div className="h-auto bg-gradient-to-br from-[#0f3d2e] via-[#145a3a] to-[#1b7a5e] rounded-xl">
               <ExperienceCard
                 role="Software Engineer"
                 company="Gloify"
@@ -135,7 +136,7 @@ const Page = () => {
                   "Worked closely with clients and business analysts on-site",
                   "Mentored junior developers and enforced code quality standards",
                 ]}
-                 tech={[
+                tech={[
                   "React",
                   "Next.js",
                   "Node.js",
@@ -145,7 +146,7 @@ const Page = () => {
               />
             </div>
 
-            <div className="h-auto bg-purple-700 rounded-xl">
+            <div className="h-auto  bg-gradient-to-br from-[#2b1055] via-[#3c1361] to-[#1b0f3b] rounded-xl">
               <ExperienceCard
                 role="Software Engineer"
                 company="good userxperience"
@@ -165,7 +166,10 @@ const Page = () => {
           {/* DESKTOP */}
           <div className="hidden lg:flex w-1/2 relative h-screen sticky top-0 items-center justify-center">
             {/* CARD 1 */}
-            <div className="absolute z-10 w-100 h-150 bg-blue-700 rounded-xl overflow-y-auto">
+            <div
+              className="absolute z-10 w-100 h-150  bg-gradient-to-br from-[#2b1055] via-[#3c1361] to-[#1b0f3b]
+ shadow-[0_25px_80px_-20px_rgba(60,19,97,0.6)] rounded-xl overflow-y-auto"
+            >
               <ExperienceCard
                 role="Senior Software Engineer"
                 company="Reverie Language Technologies"
@@ -184,7 +188,8 @@ const Page = () => {
 
             <motion.div
               style={{ y: card2Y, opacity: card2Opacity }}
-              className="absolute z-20 w-100 h-150 bg-green-700 rounded-xl overflow-y-auto"
+              className="absolute z-20 w-100 h-150  bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364]
+ shadow-[0_25px_80px_-20px_rgba(44,83,100,0.6)] rounded-xl overflow-y-auto"
             >
               <ExperienceCard
                 role="Software Engineer"
@@ -210,7 +215,8 @@ const Page = () => {
 
             <motion.div
               style={{ y: card3Y, opacity: card3Opacity }}
-              className="absolute z-30 w-100 h-150 bg-purple-700 rounded-xl overflow-y-auto"
+              className="absolute z-30 w-100 h-150 bg-gradient-to-br from-[#0f3d2e] via-[#145a3a] to-[#1b7a5e]
+ shadow-[0_25px_80px_-20px_rgba(27,122,94,0.6)] rounded-xl overflow-y-auto"
             >
               <ExperienceCard
                 role="Software Engineer"
@@ -239,7 +245,7 @@ const Page = () => {
           bg-black
           px-4
           py-10          /* controls top & bottom spacing */
-          h-[70vh]       /* desktop height */
+          min-h-full      /* desktop height */
           sm:h-[65vh]
           md:h-[60vh]
           lg:h-[65vh]
@@ -303,10 +309,10 @@ const Page = () => {
       {/* CONTACT */}
       <section
         id="contact"
-        className="min-h-screen flex items-center justify-center px-4 bg-black"
+        className="min-h-auto lg:min-h-screen  flex items-center justify-center px-4 bg-black"
       >
         <div className="w-full max-w-lg bg-white/5 backdrop-blur-md rounded-2xl p-6 text-white">
-          <h2 className="text-3xl font-bold text-center mb-6">Contact Me</h2>
+          <h2 className="text-3xl font-bold text-center mb-6">Contact</h2>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input
