@@ -75,26 +75,7 @@ const Page = () => {
   return (
     <>
       {/* HERO */}
-      <section
-        id="home"
-        className="flex items-center justify-center min-h-[calc(100vh-80px)]"
-      >
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          <div className="w-40 h-40 lg:w-80 lg:h-80 rounded-full overflow-hidden">
-            <Image
-              src={Profile}
-              alt="Profile"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div className="text-center lg:text-left">
-            <h1 className="text-3xl font-bold">Gokul V</h1>
-            <TypingCursor text="Senior Software Engineer" />
-          </div>
-        </div>
-      </section>
-
+      <HeroSection />
       {/* WORK EXPERIENCE */}
       <section
         ref={workRef}
