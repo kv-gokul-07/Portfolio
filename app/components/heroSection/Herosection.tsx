@@ -23,7 +23,7 @@ export default function HeroSection() {
   return (
     <section
       ref={ref}
-      id="home"
+      id="Home"
       className="min-h-[100vh] flex items-center justify-center"
     >
       <div className="flex flex-col lg:flex-row items-center gap-12">

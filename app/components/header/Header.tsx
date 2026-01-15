@@ -42,7 +42,7 @@ const Header = () => {
 
 
   return (
-    <header className="relative w-full border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-black">
+    <header className="fixed z-10 w-full border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-black">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
 
         {/* Left: Avatar */}
@@ -61,7 +61,7 @@ const Header = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-6">
-          {["Home", "Work Experience", "About", "Projects", "Contact"].map((item) => (
+          {["Home", "Work Experience", "Skills", "Projects", "Contact"].map((item) => (
             <a
               key={item}
               href={`#${item}`}
@@ -96,7 +96,7 @@ const Header = () => {
           {/* Menu */}
           <div className="absolute right-4 top-full z-50 mt-2 w-48 rounded-xl bg-white shadow-xl dark:bg-zinc-900 lg:hidden">
             <nav className="flex flex-col divide-y divide-zinc-200 dark:divide-zinc-800">
-              {["Home", "Work Experience", "About", "Projects", "Contact"].map((item) => (
+              {["Home", "Work Experience", "Skills", "Projects", "Contact"].map((item) => (
                 <a
                   key={item}
                   href={`#${item}`}

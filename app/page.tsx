@@ -6,9 +6,7 @@ export default function Home() {
       <div className="min-h-screen bg-zinc-50 font-sans dark:bg-black">
       
       {/* Top Header */}
-      <header className="w-full">
         <Header />
-      </header>
 
       {/* Content Area */}
       <main className="mx-auto max-w-7xl">

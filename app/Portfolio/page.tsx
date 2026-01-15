@@ -79,7 +79,7 @@ const Page = () => {
       {/* WORK EXPERIENCE */}
       <section
         ref={workRef}
-        id="work"
+        id="Work Experience"
         className="relative min-h-[180vh] lg:min-h-[240vh] bg-black text-white"
       >
         <div className="flex flex-col lg:flex-row items-center lg:sticky lg:top-0 lg:h-screen">
@@ -221,7 +221,7 @@ const Page = () => {
       {/* SKILLS */}
       <section
         ref={skillsRef}
-        id="skills"
+        id="Skills"
         className="
           bg-black
           px-4
@@ -230,13 +230,14 @@ const Page = () => {
           sm:h-[65vh]
           md:h-[60vh]
           lg:h-[65vh]
-          xl:h-[200]
+          xl:h-[300]
           flex
-          flex-column
+          flex-col
           justify-center
           items-center
         "
       >
+        <h2 className="text-3xl lg:text-4xl font-bold py-10">Skills</h2>
         <div className="max-w-6xl w-full flex flex-wrap justify-center gap-4">
           {[
             "HTML",
@@ -289,8 +290,8 @@ const Page = () => {
 
       {/* CONTACT */}
       <section
-        id="contact"
-        className="min-h-auto lg:min-h-screen  flex items-center justify-center px-4 bg-black"
+        id="Contact"
+        className="min-h-auto lg:min-h-screen  flex items-center justify-center px-4 bg-black pb-10"
       >
         <div className="w-full max-w-lg bg-white/5 backdrop-blur-md rounded-2xl p-6 text-white">
           <h2 className="text-3xl font-bold text-center mb-6">Contact</h2>
