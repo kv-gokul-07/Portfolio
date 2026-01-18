@@ -3,7 +3,7 @@ import Header from "./components/header/Header";
 import Portfolio from "./Portfolio/page";
 export default function Home() {
   return (
-      <div className="min-h-screen bg-zinc-50 font-sans dark:bg-black">
+      <div className="min-h-screen bg-zinc-50 font-sans dark:bg-black relative">
       
       {/* Top Header */}
         <Header />

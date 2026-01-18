@@ -7,6 +7,7 @@ import Profile from "../../public/profile.jpg";
 import TypingCursor from "../components/typingCursor/TypingCursor";
 import ExperienceCard from "../components/experienceCard/ExperienceCard";
 import HeroSection from "../components/heroSection/Herosection";
+import SkillsOrbit from "../components/skillsOrbit/SkillsOrbit";
 
 const Page = () => {
   /* -------------------- REFS -------------------- */
@@ -130,7 +131,7 @@ const Page = () => {
             <div className="h-auto  bg-gradient-to-br from-[#2b1055] via-[#3c1361] to-[#1b0f3b] rounded-xl">
               <ExperienceCard
                 role="Software Engineer"
-                company="good userxperience"
+                company="Good UserXperience"
                 duration="Aug 2020 – Sep 2022"
                 location="Bangalore Urban · On-site"
                 responsibilities={[
@@ -224,68 +225,16 @@ const Page = () => {
         id="Skills"
         className="
           bg-black
-          px-4
-          py-10          /* controls top & bottom spacing */
-          min-h-full      /* desktop height */
-          sm:h-[65vh]
-          md:h-[60vh]
-          lg:h-[65vh]
-          xl:h-[300]
+          py-5
+          sm:px-4
+          sm:py-6         
           flex
           flex-col
           justify-center
           items-center
         "
       >
-        <h2 className="text-3xl lg:text-4xl font-bold py-10">Skills</h2>
-        <div className="max-w-6xl w-full flex flex-wrap justify-center gap-4">
-          {[
-            "HTML",
-            "CSS",
-            "SCSS",
-            "JavaScript",
-            "TypeScript",
-            "React JS",
-            "Next.js",
-            "Three.js",
-            "Tailwind CSS",
-            "Node.js",
-            "Express.js",
-            "Moleculer.js",
-            "MongoDB",
-            "REST APIs",
-            "Microservices",
-            "Git",
-            "Bitbucket",
-            "Postman",
-            "Docker",
-            "CI/CD",
-            "Kubernetes",
-            "System Design",
-          ].map((skill, index) => (
-            <motion.div
-              key={index}
-              style={{
-                backgroundImage:
-                  "linear-gradient(135deg, white 0%, white 50%, transparent 50%)",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "200% 200%",
-                backgroundPosition: skillsBgPosition,
-                color: skillsTextColor,
-              }}
-              className="
-    px-5 py-3
-    border border-current
-    rounded-[20%]
-    text-center
-    text-sm sm:text-base
-    overflow-hidden
-  "
-            >
-              {skill}
-            </motion.div>
-          ))}
-        </div>
+       <SkillsOrbit />
       </section>
 
       {/* CONTACT */}

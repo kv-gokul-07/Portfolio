@@ -24,7 +24,7 @@ export default function TypingCursor({ text, speed = 120 }: TypingCursorProps) {
   const done = index > text.length;
 
   return (
-    <h2 className="text-lg text-gray-600">
+    <h2 className="text-lg text-gray-600 w-60">
       {value}
       {!done && <span className="animate-pulse">_</span>}
     </h2>
